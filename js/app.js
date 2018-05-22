@@ -7,7 +7,7 @@ let cards = ['diamond', 'diamond',
 			'bolt', 'bolt',
 			'cube', 'cube',
 			'leaf', 'leaf',
-			'bicycle', 'bicycle',
+			'bicycle', 'bicycle', 
 			'bomb', 'bomb'];
 
 /*
@@ -16,7 +16,23 @@ let cards = ['diamond', 'diamond',
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
- 
+ function displayCards()
+ {
+	 shuffle(cards);
+	 const deck = document.querySelector('.deck');
+	 
+	 for(let i = 0; i < cards.length; i++)
+	 {
+		let newCard = document.createElement('li');
+		newCard.className += 'card';
+		
+		const newSymbol = document.createElement('i');
+		newSymbol.className += `fa fa-${cards[i]}`;
+		
+		newCard.appendChild(newSymbol);
+		deck.appendChild(newCard);
+	 }
+ }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -32,6 +48,8 @@ function shuffle(array) {
 
     return array;
 }
+
+displayCards();
 
 
 /*
