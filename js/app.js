@@ -15,9 +15,13 @@ let openCards = [];
 
 const deck = document.querySelector('.deck');
 const restartButton = document.querySelector('.restart');
-restartButton.addEventListener('click', restartClicked);
-			
+	
 displayCards();
+
+restartButton.addEventListener('click', function restartClicked() {
+	deck.innerHTML = '';
+	displayCards();
+});
 
 /*
  * Display the cards on the page
@@ -89,4 +93,3 @@ function addToOpenCards(card)
 		//openCards.add(event.target.children[0]
 	}
 }
-
