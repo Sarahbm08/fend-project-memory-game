@@ -10,6 +10,15 @@ let cards = ['diamond', 'diamond',
 			'bicycle', 'bicycle', 
 			'bomb', 'bomb'];
 
+// list of cards that are currently flipped over (none to start)
+let openCards = [];
+
+const deck = document.querySelector('.deck');
+const restartButton = document.querySelector('.restart');
+restartButton.addEventListener('click', restartClicked);
+			
+displayCards();
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -19,8 +28,7 @@ let cards = ['diamond', 'diamond',
  function displayCards()
  {
 	 shuffle(cards);
-	 const deck = document.querySelector('.deck');
-	 
+	 	 
 	 for(let i = 0; i < cards.length; i++)
 	 {
 		let newCard = document.createElement('li');
@@ -32,6 +40,7 @@ let cards = ['diamond', 'diamond',
 		newCard.appendChild(newSymbol);
 		deck.appendChild(newCard);
 	 }
+	 deck.addEventListener('click', cardClicked);
  }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -49,8 +58,6 @@ function shuffle(array) {
     return array;
 }
 
-displayCards();
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -62,3 +69,24 @@ displayCards();
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+function cardClicked(event)
+{
+	showCardSymbol(event.target);
+	//console.log('target: ' + event.target.children[0].className);
+	addToOpenCards(event.target);
+}
+
+function showCardSymbol(card)
+{
+	if(card.className === 'card' && !card.classList.contains(' open show'))
+		card.className += ' open show';
+}
+  
+function addToOpenCards(card)
+{
+	if(openCards.length < 2)
+	{
+		//openCards.add(event.target.children[0]
+	}
+}
+
