@@ -1,7 +1,14 @@
 /*
  * Create a list that holds all of your cards
  */
-
+let cards = ['diamond', 'diamond',
+			'paper-plane-o', 'paper-plane-o',
+			'anchor', 'anchor',
+			'bolt', 'bolt',
+			'cube', 'cube',
+			'leaf', 'leaf',
+			'bicycle', 'bicycle',
+			'bomb', 'bomb'];
 
 /*
  * Display the cards on the page
@@ -9,6 +16,7 @@
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+ 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
