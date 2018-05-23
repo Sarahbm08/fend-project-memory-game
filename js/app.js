@@ -11,7 +11,8 @@ let cards = ['diamond', 'diamond',
 			'bomb', 'bomb'];
 
 // list of cards that are currently flipped over (none to start)
-let openCards = [];
+let matchedCards = [];
+let flippedCard = '';
 
 const deck = document.querySelector('.deck');
 const restartButton = document.querySelector('.restart');
@@ -21,6 +22,7 @@ displayCards();
 restartButton.addEventListener('click', function restartClicked() {
 	deck.innerHTML = '';
 	displayCards();
+	matchedCards = [];
 });
 
 /*
@@ -75,21 +77,64 @@ function shuffle(array) {
  */
 function cardClicked(event)
 {
-	showCardSymbol(event.target);
-	//console.log('target: ' + event.target.children[0].className);
-	addToOpenCards(event.target);
+	if(validCard(event.target))
+	{
+		showCardSymbol(event.target);
+		console.log('target: ' + event.target.children[0].className);
+		checkMatched(event.target.children[0]);
+		console.log("matched cards: " + matchedCards);
+	}
 }
 
 function showCardSymbol(card)
 {
-	if(card.className === 'card' && !card.classList.contains(' open show'))
-		card.className += ' open show';
+	//assert: we already have a valid card
+	card.className += ' open show';
 }
   
-function addToOpenCards(card)
+function checkMatched(card)
 {
-	if(openCards.length < 2)
-	{
-		//openCards.add(event.target.children[0]
+	//assert: we already have a valid card
+	const symbol = getSymbol(card);
+	if(flippedCard == '')
+	{		
+		flippedCard = card;
 	}
+	else //we have already flipped one over, let's check if the new card matches
+	{
+		if(symbol === getSymbol(flippedCard)) //match!
+			matchCards(flippedCard, card);
+		else
+			turnCardsOver(flippedCard, card);
+	}
+}
+
+function matchCards(card1, card2)
+{
+	console.log("match!");
+	matchedCards.push(card1);
+	matchedCards.push(card2);
+	card1.parentElement.className = 'card match';
+	card2.parentElement.className = 'card match';
+	flippedCard = '';
+}
+
+function turnCardsOver(card1, card2)
+{
+	console.log("no match!" + card1.outerHTML + "\n" + card2.outerHTML);
+	card1.parentElement.className = 'card';
+	card2.parentElement.className = 'card';
+	flippedCard = '';
+}
+
+function validCard(card)
+{
+	return card.className === 'card' && //user actually cliked on a card
+			!card.classList.contains(' open show'); //it's not already flipped over
+			
+}
+
+function getSymbol(card)
+{
+	return card.className.substring(6); // cut off "fa fa-"
 }
