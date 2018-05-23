@@ -122,16 +122,21 @@ function matchCards(card1, card2)
 function turnCardsOver(card1, card2)
 {
 	console.log("no match!" + card1.outerHTML + "\n" + card2.outerHTML);
-	card1.parentElement.className = 'card';
-	card2.parentElement.className = 'card';
+	card1.parentElement.className += ' wrong';
+	card2.parentElement.className += ' wrong';
+	// delay hiding the cards until after they see that it was wrong
+	setTimeout(function resetCards() {
+		card1.parentElement.className = 'card';
+		card2.parentElement.className = 'card';
+	}, 500);
 	flippedCard = '';
 }
 
 function validCard(card)
 {
 	return card.className === 'card' && //user actually cliked on a card
-			!card.classList.contains(' open show'); //it's not already flipped over
-			
+			!card.classList.contains('match') && //it's not already matched
+			card.children[0] != flippedCard; //it's not our current flipped card
 }
 
 function getSymbol(card)
