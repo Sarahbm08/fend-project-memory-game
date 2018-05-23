@@ -1,3 +1,15 @@
+/* TODO:
+ * 		- add moves counter
+ *		- take away stars depending on number of moves
+ *		- add running timer
+ *		- display moves, stars, and total time at win screen
+ *		- check usability across tablets and phones
+ *		- Update README
+ *		- check comments
+ *		- check code format and readability
+ */
+
+
 /*
  * Create a list that holds all of your cards
  */
@@ -14,16 +26,14 @@ let cards = ['diamond', 'diamond',
 let matchedCards = [];
 let flippedCard = '';
 
+let mainContainer = document.querySelector('.container');
+let winContainer = document.querySelector('.win');
 const deck = document.querySelector('.deck');
-const restartButton = document.querySelector('.restart');
+const restartButtons = document.getElementsByClassName('restart');
 	
 displayCards();
-
-restartButton.addEventListener('click', function restartClicked() {
-	deck.innerHTML = '';
-	displayCards();
-	matchedCards = [];
-});
+restartButtons[0].addEventListener('click', restart);
+restartButtons[1].addEventListener('click', restart);
 
 /*
  * Display the cards on the page
@@ -80,9 +90,7 @@ function cardClicked(event)
 	if(validCard(event.target))
 	{
 		showCardSymbol(event.target);
-		console.log('target: ' + event.target.children[0].className);
 		checkMatched(event.target.children[0]);
-		console.log("matched cards: " + matchedCards);
 	}
 }
 
@@ -111,19 +119,20 @@ function checkMatched(card)
 
 function matchCards(card1, card2)
 {
-	console.log("match!");
 	matchedCards.push(card1);
 	matchedCards.push(card2);
 	card1.parentElement.className = 'card match';
 	card2.parentElement.className = 'card match';
 	flippedCard = '';
+	if(matchedCards.length == 16)
+		winGame();
 }
 
 function turnCardsOver(card1, card2)
 {
-	console.log("no match!" + card1.outerHTML + "\n" + card2.outerHTML);
 	card1.parentElement.className += ' wrong';
 	card2.parentElement.className += ' wrong';
+	
 	// delay hiding the cards until after they see that it was wrong
 	setTimeout(function resetCards() {
 		card1.parentElement.className = 'card';
@@ -142,4 +151,21 @@ function validCard(card)
 function getSymbol(card)
 {
 	return card.className.substring(6); // cut off "fa fa-"
+}
+
+function restart()
+{
+	deck.innerHTML = '';
+	displayCards();
+	matchedCards = [];
+	mainContainer.style.display = 'flex';
+	winContainer.style.display = 'none';
+}
+
+function winGame()
+{
+	mainContainer.style.display = 'none';
+	winContainer.style.display = 'inline';	
+	let winInfo = document.querySelector('.win-info');
+	winInfo.innerHTML = '<p>Moves: 20</p><p>Stars: 2</p>';
 }

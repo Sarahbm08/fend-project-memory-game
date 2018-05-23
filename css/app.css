@@ -86,8 +86,7 @@ h1 {
 
 .deck .card.wrong {
 	background: #bc370f;
-	animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
-	transform: translate3d(0, 0, 0);
+	animation: shake 0.4s cubic-bezier(.36,.07,.19,.97);
 }
 
 @keyframes shake {
@@ -134,3 +133,22 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for the win container display
+ * This only is displayed when the user has won
+ */
+ 
+ .win {
+	display: none; /* starts out invisible */
+	text-align: center;
+ }
+ 
+ .win-title {
+	font-size: 2em;
+	font-weight: bolder;
+ }
+ 
+ .win-info {
+	font-size: 1.5em;
+ }
