@@ -2,12 +2,6 @@
 
 Sarah Morley's implementation of Udacity's Memory Game Project. This game is a typical memory game with "cards" you flip over to find matches.
 
-## Table of Contents
-
-* [Game Features](#gamefeatures)
-* [Dependencies](#dependencies)
-* [Contributing](#contributing)
-
 ## Game Features
 
 In addition to the basic game functionality, this game also features:
