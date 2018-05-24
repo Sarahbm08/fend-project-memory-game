@@ -165,8 +165,6 @@ function restart() {
 	timerSeconds = 0;
 	timerDisplay.innerHTML = '0:00';
 	timer = setInterval(timerInterval, 1000);
-	/*mainContainer.style.display = 'flex';
-	winContainer.style.display = 'none';*/
 }
 
 function winGame() {
@@ -181,12 +179,6 @@ function winGame() {
 			restart();
 		}
 	})
-	/*mainContainer.style.display = 'none';
-	winContainer.style.display = 'inline';	
-	let winInfo = document.querySelector('.win-info');
-	winInfo.innerHTML = `<p>Moves: ${numMoves} </p>
-		<p>${numStars} Star${numStars > 1 ? 's' : ''}</p>
-		<p>Total time: ${timerMinutes}:${(timerSeconds < 10 ? '0' + timerSeconds : timerSeconds)}`;*/
 }
 
 function getWinText()
