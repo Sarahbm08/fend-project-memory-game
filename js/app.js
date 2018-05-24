@@ -1,6 +1,4 @@
 /* TODO:
- * 		- add moves counter
- *		- take away stars depending on number of moves
  *		- add running timer
  *		- display moves, stars, and total time at win screen
  *		- check usability across tablets and phones
@@ -26,10 +24,12 @@ let cards = ['diamond', 'diamond',
 let matchedCards = 0;
 let flippedCard = '';
 let numMoves = 0; //number of times the user flips a card over
+let numStars = 3;
 
 let mainContainer = document.querySelector('.container');
 let winContainer = document.querySelector('.win');
 let movesSpan = document.querySelector('.moves');
+let starsDisplay = document.querySelector('.stars');
 const deck = document.querySelector('.deck');
 const restartButtons = document.getElementsByClassName('restart');
 	
@@ -102,8 +102,27 @@ function showCardSymbol(card)
 	card.className += ' open show';
 	numMoves++;
 	movesSpan.innerHTML = numMoves;
+	updateStars();
 }
-  
+
+function updateStars()
+{
+	if(numMoves > 20 && numStars === 3)
+	{
+		removeStar();
+	}
+	else if(numMoves > 40 && numStars === 2)
+	{
+		removeStar();
+	}	
+}
+
+function removeStar()
+{
+	numStars--;
+	starsDisplay.removeChild(starsDisplay.firstElementChild);
+}
+
 function checkMatched(card)
 {
 	//assert: we already have a valid card
@@ -163,6 +182,10 @@ function restart()
 	matchedCards = 0;
 	numMoves = 0;
 	movesSpan.innerHTML = numMoves;
+	numStars = 3;
+	starsDisplay.innerHTML = `<li><i class="fa fa-star"></i></li>
+        		<li><i class="fa fa-star"></i></li>
+        		<li><i class="fa fa-star"></i></li>`;
 	mainContainer.style.display = 'flex';
 	winContainer.style.display = 'none';
 }
@@ -172,5 +195,5 @@ function winGame()
 	mainContainer.style.display = 'none';
 	winContainer.style.display = 'inline';	
 	let winInfo = document.querySelector('.win-info');
-	winInfo.innerHTML = `<p>Moves: ${numMoves} </p><p>Stars: 2</p>`;
+	winInfo.innerHTML = `<p>Moves: ${numMoves} </p><p>Stars: ${numStars}</p>`;
 }
