@@ -19,6 +19,7 @@ body {
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
+	font-size: 24px;
 }
 
 .container {
@@ -29,13 +30,14 @@ body {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Luckiest Guy', cursive;
     font-weight: 300;
+	font-size: 46px;
+	margin-bottom: 0;
 }
 
 .timer-display {
-	float: left;
-	font-size: 1.5em;
+	font-size: 1.7em;
 }
 
 .timer {
@@ -47,10 +49,10 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
+    width: 350px;
+    min-height: 370px;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
     display: flex;
@@ -61,8 +63,8 @@ h1 {
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
+    height: 75px;
+    width: 75px;
     background: #2e3d49;
     font-size: 0;
     color: #ffffff;
@@ -125,6 +127,7 @@ https://css-tricks.com/snippets/css/shake-css-keyframe-animation/
     text-align: left;
     width: 345px;
     margin-bottom: 10px;
+	font-size: 1.2em;
 }
 
 .score-panel .stars {

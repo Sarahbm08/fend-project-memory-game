@@ -1,0 +1,32 @@
+/* Responsive Media Queries for screens larger than Mobile */
+
+@media screen and (min-width: 620px) {
+	h1 {
+		font-size: 52px;
+		margin-bottom: 10px;
+	}
+	
+	.deck {
+		width: 610px;
+		min-height: 630px;
+		padding: 25px;
+	}
+	
+	.deck .card {
+		height: 125px;
+		width: 125px;
+	}
+}
+
+@media screen and (min-width: 810px) {
+	.deck {
+		width: 800px;
+		min-height: 820px;
+		padding: 32px;
+	}
+	
+	.deck .card {
+		height: 150px;
+		width: 150px;
+	}
+}
