@@ -81,7 +81,8 @@ h1 {
     font-size: 33px;
 }
 
-/* Shake animation code by Sarah Drasner from CSS-Tricks: https://css-tricks.com/snippets/css/shake-css-keyframe-animation/  
+/* Shake animation code by Sarah Drasner from CSS-Tricks: 
+https://css-tricks.com/snippets/css/shake-css-keyframe-animation/  
  */
 
 .deck .card.wrong {

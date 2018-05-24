@@ -23,11 +23,13 @@ let cards = ['diamond', 'diamond',
 			'bomb', 'bomb'];
 
 // list of cards that are currently flipped over (none to start)
-let matchedCards = [];
+let matchedCards = 0;
 let flippedCard = '';
+let numMoves = 0; //number of times the user flips a card over
 
 let mainContainer = document.querySelector('.container');
 let winContainer = document.querySelector('.win');
+let movesSpan = document.querySelector('.moves');
 const deck = document.querySelector('.deck');
 const restartButtons = document.getElementsByClassName('restart');
 	
@@ -98,6 +100,8 @@ function showCardSymbol(card)
 {
 	//assert: we already have a valid card
 	card.className += ' open show';
+	numMoves++;
+	movesSpan.innerHTML = numMoves;
 }
   
 function checkMatched(card)
@@ -119,12 +123,11 @@ function checkMatched(card)
 
 function matchCards(card1, card2)
 {
-	matchedCards.push(card1);
-	matchedCards.push(card2);
+	matchedCards += 2;
 	card1.parentElement.className = 'card match';
 	card2.parentElement.className = 'card match';
 	flippedCard = '';
-	if(matchedCards.length == 16)
+	if(matchedCards == 16)
 		winGame();
 }
 
@@ -157,7 +160,9 @@ function restart()
 {
 	deck.innerHTML = '';
 	displayCards();
-	matchedCards = [];
+	matchedCards = 0;
+	numMoves = 0;
+	movesSpan.innerHTML = numMoves;
 	mainContainer.style.display = 'flex';
 	winContainer.style.display = 'none';
 }
@@ -167,5 +172,5 @@ function winGame()
 	mainContainer.style.display = 'none';
 	winContainer.style.display = 'inline';	
 	let winInfo = document.querySelector('.win-info');
-	winInfo.innerHTML = '<p>Moves: 20</p><p>Stars: 2</p>';
+	winInfo.innerHTML = `<p>Moves: ${numMoves} </p><p>Stars: 2</p>`;
 }
