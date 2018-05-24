@@ -18,7 +18,7 @@ In addition to the basic game functionality, this game also features:
 
 ## Dependencies
 
-No dependencies needed. This game as everything included. Just open index.html and enjoy!
+No dependencies needed. This game has everything included. Just open index.html and enjoy!
 
 ## Contributing
 

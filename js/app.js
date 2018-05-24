@@ -1,9 +1,3 @@
-/* TODO:
- *		- check comments
- *		- check code format and readability
- */
-
- 
 // DOM variables
 let mainContainer = document.querySelector('.container');
 let winContainer = document.querySelector('.win');
@@ -42,12 +36,10 @@ restartButtons[1].addEventListener('click', restart);
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
- function displayCards()
- {
+ function displayCards() {
 	 shuffle(cards);
 	 	 
-	 for(let i = 0; i < cards.length; i++)
-	 {
+	 for(let i = 0; i < cards.length; i++) {
 		let newCard = document.createElement('li');
 		newCard.className += 'card';
 		
@@ -62,7 +54,7 @@ restartButtons[1].addEventListener('click', restart);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -75,28 +67,14 @@ function shuffle(array) {
     return array;
 }
 
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-function cardClicked(event)
-{
-	if(validCard(event.target))
-	{
+function cardClicked(event) {
+	if(validCard(event.target)) {
 		showCardSymbol(event.target);
 		checkMatched(event.target.children[0]);
 	}
 }
 
-function showCardSymbol(card)
-{
+function showCardSymbol(card) {
 	//assert: we already have a valid card
 	card.className += ' open show';
 	numMoves++;
@@ -104,34 +82,25 @@ function showCardSymbol(card)
 	updateStars();
 }
 
-function updateStars()
-{
-	if(numMoves > 20 && numStars === 3)
-	{
+function updateStars() {
+	if((numMoves > 20 && numStars === 3) ||
+		(numMoves > 40 && numStars === 2)) {
 		removeStar();
 	}
-	else if(numMoves > 40 && numStars === 2)
-	{
-		removeStar();
-	}	
 }
 
-function removeStar()
-{
+function removeStar() {
 	numStars--;
 	starsDisplay.removeChild(starsDisplay.firstElementChild);
 }
 
-function checkMatched(card)
-{
+function checkMatched(card) {
 	//assert: we already have a valid card
 	const symbol = getSymbol(card);
-	if(flippedCard == '')
-	{		
+	if(flippedCard == '') {		
 		flippedCard = card;
 	}
-	else //we have already flipped one over, let's check if the new card matches
-	{
+	else { //we have already flipped one over, let's check if the new card matches
 		if(symbol === getSymbol(flippedCard)) //match!
 			matchCards(flippedCard, card);
 		else
@@ -139,8 +108,7 @@ function checkMatched(card)
 	}
 }
 
-function matchCards(card1, card2)
-{
+function matchCards(card1, card2) {
 	matchedCards += 2;
 	card1.parentElement.className = 'card match';
 	card2.parentElement.className = 'card match';
@@ -149,8 +117,7 @@ function matchCards(card1, card2)
 		winGame();
 }
 
-function turnCardsOver(card1, card2)
-{
+function turnCardsOver(card1, card2) {
 	card1.parentElement.className += ' wrong';
 	card2.parentElement.className += ' wrong';
 	
@@ -162,30 +129,26 @@ function turnCardsOver(card1, card2)
 	flippedCard = '';
 }
 
-function validCard(card)
-{
+function validCard(card) {
 	return card.className === 'card' && //user actually cliked on a card
 			!card.classList.contains('match') && //it's not already matched
 			card.children[0] != flippedCard; //it's not our current flipped card
 }
 
-function getSymbol(card)
-{
+function getSymbol(card) {
 	return card.className.substring(6); // cut off "fa fa-"
 }
 
 function timerInterval() {
 	timerSeconds++;
-	if(timerSeconds === 60)
-	{
+	if(timerSeconds === 60) {
 		timerMinutes++;
 		timerSeconds = 0;
 	}
 	timerDisplay.innerHTML = timerMinutes + ':' + (timerSeconds < 10 ? '0' + timerSeconds : timerSeconds);
 }
 
-function restart()
-{
+function restart() {
 	deck.innerHTML = '';
 	displayCards();
 	matchedCards = 0;
@@ -204,11 +167,12 @@ function restart()
 	winContainer.style.display = 'none';
 }
 
-function winGame()
-{
+function winGame() {
 	clearInterval(timer);
 	mainContainer.style.display = 'none';
 	winContainer.style.display = 'inline';	
 	let winInfo = document.querySelector('.win-info');
-	winInfo.innerHTML = `<p>Moves: ${numMoves} </p><p>Stars: ${numStars}</p><p>Total time: ${timerMinutes}:${timerSeconds}`;
+	winInfo.innerHTML = `<p>Moves: ${numMoves} </p>
+		<p>Stars: ${numStars}</p>
+		<p>Total time: ${timerMinutes}:${(timerSeconds < 10 ? '0' + timerSeconds : timerSeconds)}`;
 }

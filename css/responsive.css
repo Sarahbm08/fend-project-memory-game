@@ -18,10 +18,10 @@
 	}
 }
 
-@media screen and (min-width: 810px) {
+@media screen and (min-width: 820px) {
 	.deck {
-		width: 800px;
-		min-height: 820px;
+		width: 780px;
+		min-height: 790px;
 		padding: 32px;
 	}
 	
