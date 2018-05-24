@@ -1,20 +1,25 @@
 # Memory Game Project
 
+Sarah Morley's implementation of Udacity's Memory Game Project. This game is a typical memory game with "cards" you flip over to find matches.
+
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Game Features](#gamefeatures)
+* [Dependencies](#dependencies)
 * [Contributing](#contributing)
 
-## Instructions
+## Game Features
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+In addition to the basic game functionality, this game also features:
 
-To get started, open `js/app.js` and start building out the app's functionality
+* running timer
+* move counter
+* star rating depending on number of moves needed to win
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+## Dependencies
+
+No dependencies needed. This game as everything included. Just open index.html and enjoy!
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Feel free to improve upon the game!

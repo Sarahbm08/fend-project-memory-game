@@ -1,5 +1,4 @@
 /* TODO:
- *		- Update README
  *		- check comments
  *		- check code format and readability
  */
