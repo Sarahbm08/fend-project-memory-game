@@ -146,22 +146,3 @@ https://css-tricks.com/snippets/css/shake-css-keyframe-animation/
     float: right;
     cursor: pointer;
 }
-
-/*
- * Styles for the win container display
- * This only is displayed when the user has won
- */
- 
- .win {
-	display: none; /* starts out invisible */
-	text-align: center;
- }
- 
- .win-title {
-	font-size: 2em;
-	font-weight: bolder;
- }
- 
- .win-info {
-	font-size: 1.5em;
- }

@@ -5,17 +5,18 @@ let movesSpan = document.querySelector('.moves');
 let starsDisplay = document.querySelector('.stars');
 let timerDisplay = document.querySelector('.timer');
 const deck = document.querySelector('.deck');
-const restartButtons = document.getElementsByClassName('restart');
+const restartButton = document.querySelector('.restart');
 
 // game control variables
-let cards = ['diamond', 'diamond',
-			'paper-plane-o', 'paper-plane-o',
-			'anchor', 'anchor',
-			'bolt', 'bolt',
-			'cube', 'cube',
-			'leaf', 'leaf',
-			'bicycle', 'bicycle', 
-			'bomb', 'bomb'];
+let cards = ['diamond',
+			'paper-plane-o',
+			'anchor',
+			'bolt',
+			'cube',
+			'leaf',
+			'bicycle', 
+			'bomb'];
+cards = cards.concat(cards); //each element has a pair
 let matchedCards = 0;
 let flippedCard = '';
 let numMoves = 0; //number of times the user flips a card over
@@ -26,8 +27,7 @@ let timer = setInterval(timerInterval, 1000);
 
 
 displayCards();
-restartButtons[0].addEventListener('click', restart);
-restartButtons[1].addEventListener('click', restart);
+restartButton.addEventListener('click', restart);
 
 
 /*
@@ -77,14 +77,12 @@ function cardClicked(event) {
 function showCardSymbol(card) {
 	//assert: we already have a valid card
 	card.className += ' open show';
-	numMoves++;
-	movesSpan.innerHTML = numMoves;
 	updateStars();
 }
 
 function updateStars() {
-	if((numMoves > 20 && numStars === 3) ||
-		(numMoves > 40 && numStars === 2)) {
+	if((numMoves > 15 && numStars === 3) ||
+		(numMoves > 30 && numStars === 2)) {
 		removeStar();
 	}
 }
@@ -101,6 +99,8 @@ function checkMatched(card) {
 		flippedCard = card;
 	}
 	else { //we have already flipped one over, let's check if the new card matches
+		numMoves++;
+		movesSpan.innerHTML = numMoves;
 		if(symbol === getSymbol(flippedCard)) //match!
 			matchCards(flippedCard, card);
 		else
@@ -145,12 +145,14 @@ function timerInterval() {
 		timerMinutes++;
 		timerSeconds = 0;
 	}
-	timerDisplay.innerHTML = timerMinutes + ':' + (timerSeconds < 10 ? '0' + timerSeconds : timerSeconds);
+	timerDisplay.innerHTML = timerMinutes + ':' + 
+		(timerSeconds < 10 ? '0' + timerSeconds : timerSeconds);
 }
 
 function restart() {
 	deck.innerHTML = '';
 	displayCards();
+	flippedCard = '';
 	matchedCards = 0;
 	numMoves = 0;
 	movesSpan.innerHTML = numMoves;
@@ -163,16 +165,41 @@ function restart() {
 	timerSeconds = 0;
 	timerDisplay.innerHTML = '0:00';
 	timer = setInterval(timerInterval, 1000);
-	mainContainer.style.display = 'flex';
-	winContainer.style.display = 'none';
+	/*mainContainer.style.display = 'flex';
+	winContainer.style.display = 'none';*/
 }
 
 function winGame() {
 	clearInterval(timer);
-	mainContainer.style.display = 'none';
+	swal({
+		title: 'Congratulations! You WIN!',
+		text: getWinText(),
+		type: 'success',
+		confirmButtonText: 'Play Again'
+	}).then((result) => {
+		if (result.value) {
+			restart();
+		}
+	})
+	/*mainContainer.style.display = 'none';
 	winContainer.style.display = 'inline';	
 	let winInfo = document.querySelector('.win-info');
 	winInfo.innerHTML = `<p>Moves: ${numMoves} </p>
-		<p>Stars: ${numStars}</p>
-		<p>Total time: ${timerMinutes}:${(timerSeconds < 10 ? '0' + timerSeconds : timerSeconds)}`;
+		<p>${numStars} Star${numStars > 1 ? 's' : ''}</p>
+		<p>Total time: ${timerMinutes}:${(timerSeconds < 10 ? '0' + timerSeconds : timerSeconds)}`;*/
+}
+
+function getWinText()
+{
+	let text = `You took ${numMoves} moves with a time of ${timerMinutes}:${(timerSeconds < 10 ? '0' + timerSeconds : timerSeconds)}
+			and got ${numStars} Star${numStars > 1 ? 's' : ''}. `;
+	
+	if(numStars === 1)
+		text+= 'Better luck next time!';
+	else if(numStars === 2)
+		text += 'Good job!';
+	else //3 stars
+		text += 'WOW!';
+	
+	return text;
 }
