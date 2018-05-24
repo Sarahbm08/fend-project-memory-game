@@ -33,6 +33,15 @@ h1 {
     font-weight: 300;
 }
 
+.timer-display {
+	float: left;
+	font-size: 1.5em;
+}
+
+.timer {
+	color: blue;
+}
+
 /*
  * Styles for the deck of cards
  */

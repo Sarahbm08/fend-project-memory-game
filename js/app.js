@@ -1,16 +1,21 @@
 /* TODO:
- *		- add running timer
- *		- display moves, stars, and total time at win screen
  *		- check usability across tablets and phones
  *		- Update README
  *		- check comments
  *		- check code format and readability
  */
 
+ 
+// DOM variables
+let mainContainer = document.querySelector('.container');
+let winContainer = document.querySelector('.win');
+let movesSpan = document.querySelector('.moves');
+let starsDisplay = document.querySelector('.stars');
+let timerDisplay = document.querySelector('.timer');
+const deck = document.querySelector('.deck');
+const restartButtons = document.getElementsByClassName('restart');
 
-/*
- * Create a list that holds all of your cards
- */
+// game control variables
 let cards = ['diamond', 'diamond',
 			'paper-plane-o', 'paper-plane-o',
 			'anchor', 'anchor',
@@ -19,23 +24,19 @@ let cards = ['diamond', 'diamond',
 			'leaf', 'leaf',
 			'bicycle', 'bicycle', 
 			'bomb', 'bomb'];
-
-// list of cards that are currently flipped over (none to start)
 let matchedCards = 0;
 let flippedCard = '';
 let numMoves = 0; //number of times the user flips a card over
 let numStars = 3;
+let timerSeconds = 0;
+let timerMinutes = 0;
+let timer = setInterval(timerInterval, 1000);
 
-let mainContainer = document.querySelector('.container');
-let winContainer = document.querySelector('.win');
-let movesSpan = document.querySelector('.moves');
-let starsDisplay = document.querySelector('.stars');
-const deck = document.querySelector('.deck');
-const restartButtons = document.getElementsByClassName('restart');
-	
+
 displayCards();
 restartButtons[0].addEventListener('click', restart);
 restartButtons[1].addEventListener('click', restart);
+
 
 /*
  * Display the cards on the page
@@ -175,6 +176,16 @@ function getSymbol(card)
 	return card.className.substring(6); // cut off "fa fa-"
 }
 
+function timerInterval() {
+	timerSeconds++;
+	if(timerSeconds === 60)
+	{
+		timerMinutes++;
+		timerSeconds = 0;
+	}
+	timerDisplay.innerHTML = timerMinutes + ':' + (timerSeconds < 10 ? '0' + timerSeconds : timerSeconds);
+}
+
 function restart()
 {
 	deck.innerHTML = '';
@@ -186,14 +197,20 @@ function restart()
 	starsDisplay.innerHTML = `<li><i class="fa fa-star"></i></li>
         		<li><i class="fa fa-star"></i></li>
         		<li><i class="fa fa-star"></i></li>`;
+	clearInterval(timer);
+	timerMinutes = 0;
+	timerSeconds = 0;
+	timerDisplay.innerHTML = '0:00';
+	timer = setInterval(timerInterval, 1000);
 	mainContainer.style.display = 'flex';
 	winContainer.style.display = 'none';
 }
 
 function winGame()
 {
+	clearInterval(timer);
 	mainContainer.style.display = 'none';
 	winContainer.style.display = 'inline';	
 	let winInfo = document.querySelector('.win-info');
-	winInfo.innerHTML = `<p>Moves: ${numMoves} </p><p>Stars: ${numStars}</p>`;
+	winInfo.innerHTML = `<p>Moves: ${numMoves} </p><p>Stars: ${numStars}</p><p>Total time: ${timerMinutes}:${timerSeconds}`;
 }
